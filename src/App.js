@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { navItems } from './shared/navigationItems';
+import Navigation from './components/Navigation';
+import PokemonsList from './components/PokemonsList';
+import PokemonDetails from './components/PokemonDetails';
+
+const App = () => {
+    return (
+        <>
+            <Router basename='/'>
+                <header className="header">
+                    <h1 className="header__heading">Pokemon App</h1>
+                    <Navigation navItems={navItems} />
+                </header>
+
+                <main className="main">
+                    <Switch>
+                        <Route exact path="/" component={PokemonsList} />
+                        <Route exact path="/details" component={PokemonDetails} />
+                        <Route path="/details/:id" component={PokemonDetails} />
+                    </Switch>
+                </main>
+
+                {/* <footer>
+                    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+                </footer> */}
+            </Router>
+        </>
+    );
+};
 
 export default App;
