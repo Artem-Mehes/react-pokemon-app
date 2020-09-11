@@ -7,14 +7,11 @@ import Preloader from './Preloader';
 const PokemonDetails = ({ match }) => {
     const [details, setDetails] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [pokemonId, setPokemonId] = useState(match.params.id || "1");
+    const [pokemonId, setPokemonId] = useState(match.params.id || 1);
 
     useEffect(() => {
-        const abortController = new AbortController();
-        const signal = abortController.signal;
-
         const fetchDetails = async () => {
-            const response = await fetch( `${URL}pokemon/${pokemonId}`, {signal: signal} );
+            const response = await fetch(`${URL}/${pokemonId}`);
             const data = await response.json();
     
             setDetails(data);
@@ -22,11 +19,18 @@ const PokemonDetails = ({ match }) => {
         }
 
         fetchDetails();
-
-        return () => {
-            abortController.abort();
-        }
     }, [pokemonId]);
+
+    const showNextPokemon = () => {
+        setLoading(true);
+        setPokemonId(prev => +prev + 1);
+    }
+
+    const showPrevPokemon = () => {
+        if (pokemonId === 1) return;
+        setLoading(true);
+        setPokemonId(prev => +prev - 1);
+    }
 
     const abilities = details.abilities && 
         details.abilities.map(item => item.ability.name);
@@ -51,6 +55,7 @@ const PokemonDetails = ({ match }) => {
         <article className="details">
             {loading ? <Preloader /> :
             <>
+                <i className="details__arrow fas fa-caret-left" onClick={showPrevPokemon}></i>
                 <header className="details__header" style={{ backgroundColor: color }}>
                     {types && types.map(item => {
                         return (
@@ -111,6 +116,7 @@ const PokemonDetails = ({ match }) => {
                         </div>
                     </div>
                 </div>
+                <i className="details__arrow fas fa-caret-right" onClick={showNextPokemon}></i>
             </>}
 
         </article>

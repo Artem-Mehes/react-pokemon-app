@@ -35,7 +35,7 @@ button {
 }
 
 .pagination {
-    margin: 30px auto;
+    margin: 40px auto 30px;
     display: flex;
     justify-content: space-between;
     max-width: 160px;
@@ -159,6 +159,14 @@ button {
     }
 }
 
+.error {
+    font-weight: 600;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .preloader {
     width: 120px;
     animation: rotation 3s infinite linear;
@@ -193,7 +201,7 @@ button {
     display: flex;
     justify-content: space-between;
     max-width: 466px;
-    margin: 0 auto;
+    margin: 0 auto 10px;
 
     &__input {
         flex: 1;
@@ -229,10 +237,32 @@ button {
         padding: 7px;
         text-align: right;
         border-radius: 25px 25px 0 0;
+        min-height: 70px;
 
         &-icon {
             margin: 4px 5px;
         }
+    }
+
+    &__arrow {
+        position: absolute;
+        color: #fff;
+        font-size: 4rem;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+
+        &:hover {
+            color: #000;
+        }
+    }
+
+    .fa-caret-left {
+        left: -65px;
+    }
+
+    .fa-caret-right {
+        right: -65px;
     }
 
     &__container {
@@ -260,9 +290,6 @@ button {
         
         table {
             border-collapse: collapse;
-        }
-
-        th {
             text-align: start;
         }
 
