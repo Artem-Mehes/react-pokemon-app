@@ -91,11 +91,13 @@ const PokemonsList = () => {
 
     const goToNextPage = () => {
         if (searchedPokemon) return;
+        setLoading(true);
         setCurrentPage(nextPage);
     };
 
     const goToPrevPage = () => {
         if (searchedPokemon) return;
+        setLoading(true);
         setCurrentPage(prevPage);
     };
 
